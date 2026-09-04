@@ -1,0 +1,79 @@
+\ProvidesPackage{preamble}
+
+\renewcommand{\rmdefault}{cmr}
+\renewcommand{\sfdefault}{cmss}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,spanish]{babel}
+\usepackage[letterpaper]{geometry}
+\geometry{verbose,nomarginpar,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{array}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage[unicode=true,
+ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 0},backref=section,colorlinks=true, linkcolor=blue]
+ {hyperref}
+
+
+%% Los convertidores HTML no saben que es tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+% No generar la salida para \date
+\date{}
+% Utilizar el punto decimal, en vez de la acostumbrada coma del español.
+% Esto está de acuerdo con la Norma NTC/ISO 80000-1
+\decimalpoint
+
+% Etiqueta de figura y tabla a la izquierda seguida de punto.
+\usepackage[justification=justified, singlelinecheck=false, labelsep = period]{caption}
+
+% Centrar títulos de secciones
+\usepackage{sectsty}
+\sectionfont{\centering}
+
+
+%Adicionar la palabra Pág. encima de los números
+\addtocontents{toc}{~\hfill\textbf{pág.}\par}
+
+% Crear un nuevo tipo de sección que sea centrado y sin numeración.
+\makeatletter
+\newcommand\@csection{\@startsection {section}{1}{\z@}%
+  {-3.5ex \@plus -1ex \@minus -.2ex}%
+  {2.3ex \@plus.2ex}%
+  {\normalfont\Large\bfseries\centering}}
+\newcommand{\csection}[1]{%
+  \@csection*{#1}%
+}
+\makeatother
+
+% Centrar la palabra BIBLIOGRAFíA, sin modificar la entrada en la TOC.
+\makeatletter
+    \renewenvironment{thebibliography}[1]{%
+    \csection{\refname} \bigskip
+    %\@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+    \list{\@biblabel{\@arabic\c@enumiv}}
+            {\settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+           \@openbib@code
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+    \sloppy
+    \clubpenalty4000\@clubpenalty \clubpenalty
+    \widowpenalty4000%
+    \sfcode`\.\@m}
+           {\def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+    \endlist}
+\makeatother
+
+\makeatother
+
+% Paquete para generar texto ficticio Lorem Ipsum
+% se puede borrar cuando ya todo el texto sea reemplazado.
+\usepackage{lipsum}
+
